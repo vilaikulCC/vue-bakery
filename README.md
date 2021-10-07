@@ -1,4 +1,4 @@
-# vue-bekery-shop
+# vue-bakery-shop
 
 ## Project setup
 ```
@@ -27,3 +27,4 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+# vue-bakery

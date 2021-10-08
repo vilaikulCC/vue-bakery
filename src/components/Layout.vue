@@ -1,18 +1,12 @@
 <template>
-    <div></div>
+  <div></div>
 </template>
 
 <script>
-import { Component , Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 
-@Component({
-
-})
-export default class Layout extends Vue {
-
-}
+@Component({})
+export default class Layout extends Vue {}
 </script>
 
-<style>
-
-</style>
+<style></style>

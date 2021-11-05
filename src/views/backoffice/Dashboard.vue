@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Layout from "@/components/Layout.vue";
+import Layout from "@/components/backoffice/Layout.vue";
 
 @Component({
   components: {

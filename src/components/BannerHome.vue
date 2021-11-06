@@ -16,6 +16,9 @@ export default class BannerHome extends Vue {}
     width: 100%;
     max-height: 420px;
     object-fit: cover;
+    animation: fadeIn 5s;
   }
 }
+
+@include img-animate;
 </style>

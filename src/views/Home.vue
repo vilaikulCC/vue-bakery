@@ -113,7 +113,9 @@ export default class Home extends Vue {
   text-align: center;
   img {
     width: 100%;
+    max-height: max-width;
     border-radius: 5px;
+    animation: fadeIn 5s;
   }
 }
 .section-bestseller {
@@ -126,10 +128,9 @@ export default class Home extends Vue {
     border: 0;
   }
   .bestseller-left {
-    display: flex;
     height: 100%;
     display: flex;
-    align-content: space-between;
+    justify-content: space-between;
     flex-direction: column;
     .app-download {
       img {
@@ -147,4 +148,6 @@ export default class Home extends Vue {
     border: 0;
   }
 }
+
+@include img-animate;
 </style>

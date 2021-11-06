@@ -23,18 +23,22 @@ h2 {
 h3 {
   font-size: 27px;
   font-weight: 600;
+  margin-bottom: 20px;
 }
 h4 {
   font-size: 24px;
   font-weight: 600;
+  margin-bottom: 20px;
 }
 h5 {
   font-size: 21px;
   font-weight: 600;
+  margin-bottom: 20px;
 }
 h6 {
   font-size: 18px;
   font-weight: 700;
+  margin-bottom: 20px;
 }
 h1,
 h2,
@@ -48,7 +52,6 @@ button,
 a {
   font-family: "Bai Jamjuree", Arial, sans-serif;
 }
-
 
 @media (min-width: 1264px) {
   .container:not(.container--fluid) {

@@ -3,11 +3,16 @@
     <v-container class="header">
       <AppHeader />
     </v-container>
-
     <v-main> <slot></slot> </v-main>
-    <v-footer>
-      <v-container class="footer">
+    <v-footer class="footer">
+      <v-container fluid>
         <AppFooter />
+      </v-container>
+
+      <v-container fluid class="bottom-bar">
+        <v-container>
+          <CreditResource />
+        </v-container>
       </v-container>
     </v-footer>
   </div>
@@ -15,14 +20,22 @@
 
 <script>
 import { Component, Vue } from "vue-property-decorator";
+import CreditResource from "@/components/CreditResource.vue";
 
-@Component({})
+@Component({
+  components: {
+    CreditResource,
+  },
+})
 export default class Layout extends Vue {}
 </script>
 
 <style lang="scss">
-.container.header {
-  padding-top: 0;
-  padding-bottom: 0;
+.container.header,
+footer.footer {
+  @include reset-frame-section;
+}
+.bottom-bar {
+  background-color: $black;
 }
 </style>

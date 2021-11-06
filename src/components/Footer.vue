@@ -1,17 +1,10 @@
 <template>
-  <div>
-    <CreditResource></CreditResource>
-  </div>
+  <div></div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import CreditResource from "@/components/CreditResource.vue";
 
-@Component({
-  components: {
-    CreditResource,
-  },
-})
+@Component({})
 export default class Footer extends Vue {}
 </script>
 <style lang="scss" scoped></style>

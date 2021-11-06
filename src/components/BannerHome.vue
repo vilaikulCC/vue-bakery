@@ -4,13 +4,18 @@
   </div>
 </template>
 <script lang="ts">
-import { Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
+@Component({})
 export default class BannerHome extends Vue {}
 </script>
 <style lang="scss" scoped>
 .banner-top {
   width: 100%;
   max-height: 420px;
-  object-fit: cover;
+  img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+  }
 }
 </style>

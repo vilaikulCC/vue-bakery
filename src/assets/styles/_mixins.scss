@@ -5,3 +5,8 @@
     box-sizing: border-box;
   }
 }
+
+@mixin frame-section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}

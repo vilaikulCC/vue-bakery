@@ -7,12 +7,12 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Home",
-    component: () => import("@/views/Home.vue")
+    component: () => import("@/views/Home.vue"),
   },
   {
     path: "/backoffice/login",
     name: "Backoffice.login",
-    component: () => import("@/views/backoffice/Login.vue")
+    component: () => import("@/views/backoffice/Login.vue"),
   },
   {
     path: "/backoffice",
@@ -21,22 +21,22 @@ const routes: Array<RouteConfig> = [
       {
         path: "",
         redirect: {
-          name: "backoffice.login"
-        }
+          name: "backoffice.login",
+        },
       },
       {
         path: "login",
-        name: "backoffice.login"
+        name: "backoffice.login",
       },
       {
         path: "bakery",
-        name: "backoffice.bakery"
+        name: "backoffice.bakery",
       },
       {
         path: "vendor",
-        name: "backoffice.vendor"
-      }
-    ]
+        name: "backoffice.vendor",
+      },
+    ],
   },
 ];
 

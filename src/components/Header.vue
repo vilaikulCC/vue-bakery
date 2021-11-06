@@ -1,10 +1,8 @@
 <template>
   <div class="header-top">
-    <div>
-      <a href="/">
-        <img src="/img/logo_125Bakery.svg" alt="" class="brand-logo" />
-      </a>
-    </div>
+    <a href="/" class="brand-logo">
+      <img src="/img/logo_125Bakery.svg" alt="" />
+    </a>
     <div class="top-menu">
       <ul>
         <li><a href="">สินค้าของเรา</a></li>
@@ -14,8 +12,8 @@
   </div>
 </template>
 <script lang="ts">
-import { Vue } from "vue-property-decorator";
-
+import { Component, Vue } from "vue-property-decorator";
+@Component({})
 export default class Header extends Vue {}
 </script>
 
@@ -26,7 +24,9 @@ export default class Header extends Vue {}
   justify-content: space-between;
   align-items: center;
   .brand-logo {
-    height: 30px;
+    img {
+      height: 30px;
+    }
   }
   .top-menu {
     ul {
@@ -36,6 +36,13 @@ export default class Header extends Vue {}
 
       li {
         margin-left: 25px;
+        a {
+          color: $color-secondary;
+          text-decoration: none;
+          &:hover {
+            color: $color-primary;
+          }
+        }
       }
     }
   }

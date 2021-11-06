@@ -5,4 +5,53 @@
 
 body {
   font-family: "Bai Jamjuree", Arial, sans-serif;
+  font-size: 16px;
+  color: $color-secondary;
+}
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 52px;
+  margin-bottom: 20px;
+}
+h2 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 40px;
+  margin-bottom: 20px;
+}
+h3 {
+  font-size: 27px;
+  font-weight: 600;
+}
+h4 {
+  font-size: 24px;
+  font-weight: 600;
+}
+h5 {
+  font-size: 21px;
+  font-weight: 600;
+}
+h6 {
+  font-size: 18px;
+  font-weight: 700;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+button,
+a {
+  font-family: "Bai Jamjuree", Arial, sans-serif;
+}
+
+
+@media (min-width: 1264px) {
+  .container:not(.container--fluid) {
+    max-width: 1140px;
+  }
 }

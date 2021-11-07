@@ -18,6 +18,11 @@
   text-decoration: none;
 }
 
+@mixin small-badge {
+  border-radius: 15px;
+  padding: 5px 20px;
+}
+
 @mixin img-animate {
   @keyframes fadeIn {
     0% {

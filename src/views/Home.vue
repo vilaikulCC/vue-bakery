@@ -54,12 +54,59 @@
       <v-container>
         <v-row>
           <v-col>
-            <h3>สินค้าของเรา</h3>
+            <h3><span>สินค้าของเรา</span></h3>
           </v-col>
         </v-row>
 
         <v-row>
-          <v-col> </v-col>
+          <v-col>
+            <div class="section-filter">
+              <span>ค้นหาขนม</span>
+              <v-select
+                v-model="value"
+                :items="items"
+                chips
+                label="ทั้งหมด"
+                multiple
+                solo
+                class="select-status"
+              ></v-select>
+              <v-text-field
+                solo
+                label="พิมพ์ค้นหา"
+                append-icon="fas fa-search"
+                class="txt-search"
+              ></v-text-field>
+            </div>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col
+            md="4"
+            v-for="(item, index) in bakeList"
+            :key="index"
+            :value="item.id"
+          >
+            <div class="pd-card-inline">
+              <img src="/img/pd-croissant.jpg" alt="" />
+              <div class="pd-card-body">
+                <h6>{{ item.name }}</h6>
+                <p>ราคา {{ item.selling_price }} บาท/{{ item.unit }}</p>
+                <div
+                  v-for="(statusItem, index) in statusList"
+                  :key="index"
+                  :value="statusItem.id"
+                >
+                  <span
+                    v-if="statusItem.id == item.status && statusItem.id"
+                    :class="`badge-${statusItem.id}`"
+                  >
+                    {{ statusItem.name }}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </v-col>
         </v-row>
       </v-container>
     </v-container>
@@ -80,26 +127,27 @@ import { db } from "../db";
 })
 export default class Home extends Vue {
   bakeList = {};
+  statusList = {};
+  status = "";
 
   mounted() {
-    // const bake = this.$bind("documents", db.collection("bakery")).then(
-    //   (res) => {
-    //     // console.log(res.map((item) => item));
-    //     // res.map((item) => {
-    //     //   console.log(`R ${item.name} ${item.selling_price} บาท/${item.unit}`);
-    //     // });
-    //   }
-    // );
+    this.getBakeryList();
+    this.getStatus();
+  }
 
+  getBakeryList() {
     db.collection("bakery")
       .get()
       .then((querySnapshot) => {
-        const documents = querySnapshot.docs.map((doc) => doc.data());
         this.bakeList = querySnapshot.docs.map((doc) => doc.data());
+      });
+  }
 
-        documents.map((item) => {
-          console.log(`M ${item.name} ${item.selling_price} บาท/${item.unit}`);
-        });
+  getStatus() {
+    db.collection("status_badge")
+      .get()
+      .then((querySnapshot) => {
+        this.statusList = querySnapshot.docs.map((doc) => doc.data());
       });
   }
 }
@@ -109,18 +157,12 @@ export default class Home extends Vue {
 .section-banner {
   padding: 0;
 }
-.pd-card {
-  text-align: center;
-  img {
-    width: 100%;
-    max-height: max-width;
-    border-radius: 5px;
-    animation: fadeIn 5s;
-  }
-}
 .section-bestseller {
   background-color: $color-primary-lighter;
   @include frame-section;
+  h2 {
+    color: $black;
+  }
   hr {
     height: 2px;
     background-color: $color-primary-light;
@@ -140,6 +182,21 @@ export default class Home extends Vue {
   }
 }
 .section-product {
+  h3 {
+    position: relative;
+    color: $black;
+    &::after {
+      content: "";
+      height: 2px;
+      width: 100%;
+      background-color: $black;
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: calc(100% - 170px);
+    }
+  }
   @include frame-section;
   hr {
     height: 2px;
@@ -147,6 +204,89 @@ export default class Home extends Vue {
     margin-bottom: 35px;
     border: 0;
   }
+  .section-filter {
+    display: flex;
+    span {
+      margin-top: 15px;
+    }
+    .select-status {
+      max-width: 250px;
+    }
+    .txt-search {
+      max-width: 340px;
+    }
+    .select-status,
+    .txt-search {
+      margin-left: 30px;
+      &:focus {
+        caret-color: $color-primary !important;
+      }
+      > .v-input__control > .v-input__slot {
+        box-shadow: none !important;
+        border: 1px solid $color-primary-light;
+        border-radius: 0;
+        i {
+          color: $color-primary-light;
+          &.primary--text {
+            color: $color-primary !important;
+            caret-color: $color-primary !important;
+          }
+          &:hover,
+          &:focus {
+            color: $color-primary;
+          }
+        }
+      }
+    }
+  }
+}
+.pd-card {
+  text-align: center;
+  line-clamp: 2;
+  h6 {
+    padding: 0 15%;
+    color: $black;
+  }
+  img {
+    width: 100%;
+    max-height: max-width;
+    border-radius: 5px;
+    animation: fadeIn 5s;
+  }
+}
+.pd-card-inline {
+  display: flex;
+  h6 {
+    color: $black;
+  }
+  img {
+    width: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  .pd-card-body {
+    padding-left: 20px;
+    padding-right: 15px;
+    .status-badge {
+      color: red;
+    }
+  }
+}
+
+.badge-1 {
+  @include small-badge;
+  color: $color-warning;
+  background-color: $color-warning-light;
+}
+.badge-2 {
+  @include small-badge;
+  color: $white;
+  background-color: $color-danger;
+}
+.badge-3 {
+  @include small-badge;
+  color: $color-secondary-light;
+  background-color: $color-secondary-lighter;
 }
 
 @include img-animate;

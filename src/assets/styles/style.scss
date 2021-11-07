@@ -3,7 +3,6 @@
 @include reset;
 @import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@200;300;400;500;600;700&display=swap");
 
-
 .theme--light.v-application {
   color: $color-secondary;
 }
@@ -51,7 +50,9 @@ h6,
 p,
 span,
 button,
-a {
+a,
+ul,
+li {
   font-family: "Bai Jamjuree", Arial, sans-serif;
 }
 

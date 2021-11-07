@@ -39,7 +39,11 @@
                 :value="item.id"
               >
                 <div class="pd-card">
-                  <img src="/img/pd-croissant.jpg" alt="" />
+                  <img
+                    :src="item.img_url"
+                    :alt="item.name"
+                    :title="item.name"
+                  />
                   <h6>{{ item.name }}</h6>
                   <p>ราคา {{ item.selling_price }} บาท/{{ item.unit }}</p>
                 </div>
@@ -88,7 +92,7 @@
             :value="item.id"
           >
             <div class="pd-card-inline">
-              <img src="/img/pd-croissant.jpg" alt="" />
+              <img :src="item.img_url" :alt="item.name" :title="item.name" />
               <div class="pd-card-body">
                 <h6>{{ item.name }}</h6>
                 <p>ราคา {{ item.selling_price }} บาท/{{ item.unit }}</p>

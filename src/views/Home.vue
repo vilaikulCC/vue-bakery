@@ -254,6 +254,7 @@ export default class Home extends Vue {
   img {
     width: 100%;
     max-height: max-width;
+    margin-bottom: 20px;
     border-radius: 5px;
     animation: fadeIn 5s;
   }

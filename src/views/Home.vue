@@ -34,7 +34,7 @@
             <v-row>
               <v-col
                 md="4"
-                v-for="(item, index) in bakeList"
+                v-for="(item, index) in bakeBSList"
                 :key="index"
                 :value="item.id"
               >
@@ -131,14 +131,15 @@ import { db } from "../db";
 })
 export default class Home extends Vue {
   bakeList = {};
+  bakeBSList = {};
   statusList = {};
   status = "";
 
   mounted() {
     this.getBakeryList();
+    this.getBakeryBestSellerList();
     this.getStatus();
   }
-
   getBakeryList() {
     db.collection("bakery")
       .get()
@@ -146,7 +147,14 @@ export default class Home extends Vue {
         this.bakeList = querySnapshot.docs.map((doc) => doc.data());
       });
   }
-
+  getBakeryBestSellerList() {
+    db.collection("bakery")
+      .where("status", "==", "2")
+      .get()
+      .then((querySnapshot) => {
+        this.bakeBSList = querySnapshot.docs.map((doc) => doc.data());
+      });
+  }
   getStatus() {
     db.collection("status_badge")
       .get()

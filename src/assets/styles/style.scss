@@ -61,3 +61,17 @@ li {
     max-width: 1140px;
   }
 }
+
+.v-btn:not(.v-btn--round).v-size--default.btn-primary {
+  @include btn;
+  background-color: $black;
+  span {
+    color: white;
+    opacity: 1 !important;
+    font-size: 1rem;
+  }
+
+  &:hover {
+    background-color: $color-primary;
+  }
+}

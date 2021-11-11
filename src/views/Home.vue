@@ -67,20 +67,48 @@
             <div class="section-filter">
               <span>ค้นหาขนม</span>
               <v-select
-                v-model="value"
-                :items="items"
+                item-value="id"
+                item-text="name"
+                v-model="selectedStatus"
+                :items="selStatus"
                 chips
-                label="ทั้งหมด"
                 multiple
                 solo
                 class="select-status"
-              ></v-select>
+                @change="changeSelectedStatus"
+              >
+                <template v-slot:prepend-item>
+                  <v-list-item ripple @click="toggle">
+                    <v-list-item-action
+                      ><v-icon
+                        :color="
+                          selectedStatus.length > 0 ? 'indigo darken-4' : ''
+                        "
+                      >
+                        {{ icon }}
+                      </v-icon></v-list-item-action
+                    >
+                    <v-list-item-content>
+                      <v-list-item-title> ทั้งหมด </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </template>
+              </v-select>
               <v-text-field
                 solo
-                label="พิมพ์ค้นหา"
-                append-icon="fas fa-search"
+                label="พิมพ์ค้นหาจากชื่อขนม"
                 class="txt-search"
+                v-model="textSearch"
+                v-on:keyup.enter="searchBake(textSearch)"
               ></v-text-field>
+              <v-btn
+                elevation="0"
+                plain
+                class="btn-primary"
+                :ripple="false"
+                @click="searchBake(textSearch)"
+                ><i class="fas fa-search mr-2"></i> ค้นหา</v-btn
+              >
             </div>
           </v-col>
         </v-row>
@@ -123,6 +151,10 @@ import Layout from "@/components/Layout.vue";
 import BannerHome from "@/components/BannerHome.vue";
 import { db } from "../db";
 
+// interface status {
+//   id: string;
+//   name: string;
+// }
 @Component({
   components: {
     Layout,
@@ -133,20 +165,22 @@ export default class Home extends Vue {
   bakeList = {};
   bakeBSList = {};
   statusList = {};
-  status = "";
+  selStatus = [];
+  // selStatus = [
+  //   { id: "1", name: "มาใหม่" },
+  //   { id: "2", name: "ขายดี" },
+  //   { id: "3", name: "สินค้าหมด" },
+  // ];
+  selectedStatus = [{ id: "1" }, { id: "2" }, { id: "3" }];
+  checkStatus: Array<string> = ["0", "1", "2", "3"];
+  textSearch = "";
 
   mounted() {
-    this.getBakeryList();
+    this.getBakeryList(this.checkStatus);
     this.getBakeryBestSellerList();
     this.getStatus();
   }
-  getBakeryList() {
-    db.collection("bakery")
-      .get()
-      .then((querySnapshot) => {
-        this.bakeList = querySnapshot.docs.map((doc) => doc.data());
-      });
-  }
+
   getBakeryBestSellerList() {
     db.collection("bakery")
       .where("status", "==", "2")
@@ -155,12 +189,63 @@ export default class Home extends Vue {
         this.bakeBSList = querySnapshot.docs.map((doc) => doc.data());
       });
   }
+  getBakeryList(status: Array<string>) {
+    db.collection("bakery")
+      .where("status", "in", status)
+      .get()
+      .then((querySnapshot) => {
+        this.bakeList = querySnapshot.docs.map((doc) => doc.data());
+      });
+  }
+  getBakerySearch(keyword: string) {
+    db.collection("bakery")
+      .where("name", ">=", keyword)
+      .get()
+      .then((querySnapshot) => {
+        this.bakeList = querySnapshot.docs.map((doc) => doc.data());
+      });
+  }
+
   getStatus() {
     db.collection("status_badge")
+      .where("id", "!=", "0")
       .get()
       .then((querySnapshot) => {
         this.statusList = querySnapshot.docs.map((doc) => doc.data());
+        this.selStatus = JSON.parse(JSON.stringify(this.statusList));
       });
+  }
+  toggle() {
+    this.$nextTick(() => {
+      if (this.checkAllStatus) {
+        this.selectedStatus = [];
+        this.getBakeryList(["-1"]);
+      } else {
+        this.selectedStatus = this.selStatus;
+        this.getBakeryList(this.checkStatus);
+      }
+    });
+  }
+  get checkAllStatus() {
+    return this.selectedStatus.length === this.selStatus.length;
+  }
+  get checkSomeStatus() {
+    return this.selectedStatus.length > 0 && !this.checkAllStatus;
+  }
+  get icon() {
+    if (this.checkAllStatus) return "far fa-check-square";
+    if (this.checkSomeStatus) return "far fa-minus-square";
+    return "far fa-square";
+  }
+  changeSelectedStatus(selected: Array<string>) {
+    if (selected.length == 3) this.getBakeryList(this.checkStatus);
+    else this.getBakeryList(selected.slice());
+  }
+  searchBake(textSearch: string) {
+    if (textSearch != "") {
+      console.log(textSearch);
+      this.getBakerySearch(textSearch);
+    }
   }
 }
 </script>
@@ -218,14 +303,14 @@ export default class Home extends Vue {
   }
   .section-filter {
     display: flex;
-    span {
+    > span {
       margin-top: 15px;
     }
     .select-status {
-      max-width: 250px;
+      max-width: 300px;
     }
     .txt-search {
-      max-width: 340px;
+      max-width: 300px;
     }
     .select-status,
     .txt-search {

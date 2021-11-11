@@ -65,3 +65,11 @@
     }
   }
 }
+
+@mixin btn {
+  height: 48px;
+  max-height: 48px;
+  border-radius: 0;
+  padding-left: 15x;
+  padding-right: 15px;
+}

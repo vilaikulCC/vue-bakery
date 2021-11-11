@@ -17,7 +17,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/backoffice/",
-    component: () => import("@/components/Layout.vue"),
+    component: () => import("@/components/backoffice/Layout.vue"),
     children: [
       {
         path: "",
@@ -33,6 +33,7 @@ const routes: Array<RouteConfig> = [
       {
         path: "dashboard",
         name: "backoffice.dashboard",
+        component: () => import("@/views/backoffice/Dashboard.vue"),
       },
       {
         path: "bakery",

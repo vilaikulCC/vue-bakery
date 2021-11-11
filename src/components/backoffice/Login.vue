@@ -86,29 +86,15 @@ export default class Login extends Vue {
         var errorMessage = err.message;
       });
   }
-  //   loginWithEmail(e: any) {
-  //     firebase
-  //       .auth()
-  //       .signInWithEmailAndPassword(this.email, this.password)
-  //       .then(
-  //         (user) => {
-  //           this.$router.replace("/backoffice/dashboard");
-  //         },
-  //         (err) => {
-  //           alert(err.message);
-  //         }
-  //       );
-  //     e.preventDefault();
-  //   }
-
-  loginWithThirdParty(e: any) {
+  
+  loginWithThirdParty() {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
       .signInWithPopup(provider)
       .then(
         (data) => {
-          this.$router.replace("/backoffice/dashboard");
+          this.$router.replace({ path: "/backoffice/dashboard" });
         },
         (err) => {
           alert(err.message);

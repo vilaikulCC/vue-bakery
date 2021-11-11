@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+// import Login from '@/components/Login.vue'
 
 Vue.use(VueRouter);
 
@@ -15,18 +16,23 @@ const routes: Array<RouteConfig> = [
     component: () => import("@/views/backoffice/Login.vue"),
   },
   {
-    path: "/backoffice",
+    path: "/backoffice/",
     component: () => import("@/components/Layout.vue"),
     children: [
       {
         path: "",
         redirect: {
+          path: "login",
           name: "backoffice.login",
         },
       },
       {
         path: "login",
         name: "backoffice.login",
+      },
+      {
+        path: "dashboard",
+        name: "backoffice.dashboard",
       },
       {
         path: "bakery",

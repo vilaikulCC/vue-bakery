@@ -38,6 +38,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/analytics";
+import "firebase/compat/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB6uoNEyzm_I7oAi-4LKVPdkBt5eABSA8E",
@@ -53,3 +54,5 @@ const firebaseConfig = {
 
 // Get a Firestore instance
 export const db = firebase.initializeApp(firebaseConfig).firestore();
+export default firebase;
+// const db = firebase.firestore();

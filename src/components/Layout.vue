@@ -20,10 +20,14 @@
 
 <script>
 import { Component, Vue } from "vue-property-decorator";
+import AppHeader from "@/components/Header.vue";
+import AppFooter from "@/components/Footer.vue";
 import CreditResource from "@/components/CreditResource.vue";
 
 @Component({
   components: {
+    AppHeader,
+    AppFooter,
     CreditResource,
   },
 })

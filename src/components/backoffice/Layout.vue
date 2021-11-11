@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>Backoffice</div>
 </template>
 
 <script>

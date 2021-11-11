@@ -6,13 +6,13 @@ import vuetify from "./plugins/vuetify";
 import { firestorePlugin } from "vuefire";
 import VueGtm from "@gtm-support/vue2-gtm";
 import "@/assets/styles/style.scss";
-import AppHeader from "@/components/Header.vue";
-import AppFooter from "@/components/Footer.vue";
+// import AppHeader from "@/components/Header.vue";
+// import AppFooter from "@/components/Footer.vue";
 
 Vue.config.productionTip = false;
 Vue.use(firestorePlugin);
-Vue.component("AppHeader", AppHeader);
-Vue.component("AppFooter", AppFooter);
+// Vue.component("AppHeader", AppHeader);
+// Vue.component("AppFooter", AppFooter);
 
 Vue.use(VueGtm, {
   id: "GTM-5LDGV5H",

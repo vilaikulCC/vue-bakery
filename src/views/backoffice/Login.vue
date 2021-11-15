@@ -1,5 +1,5 @@
 <template>
-  <div id="login" class="main-box">
+  <div id="login">
     <LoginAuth />
   </div>
 </template>
@@ -16,4 +16,10 @@ import LoginAuth from "@/components/backoffice/Login.vue";
 export default class Login extends Vue {}
 </script>
 
-<style></style>
+<style lang="scss">
+#login {
+  height: 100vh;
+  background-color: $color-primary-light;
+  
+}
+</style>

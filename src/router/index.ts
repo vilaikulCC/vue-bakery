@@ -17,7 +17,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/backoffice/",
-    component: () => import("@/components/backoffice/Layout.vue"),
+    component: () => import("@/views/backoffice/Dashboard.vue"),
     children: [
       {
         path: "",

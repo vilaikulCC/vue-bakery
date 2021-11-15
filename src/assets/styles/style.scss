@@ -49,6 +49,7 @@ h5,
 h6,
 p,
 span,
+label,
 button,
 a,
 ul,
@@ -66,7 +67,22 @@ li {
   @include btn;
   background-color: $black;
   span {
-    color: white;
+    color: $white;
+    opacity: 1 !important;
+    font-size: 1rem;
+  }
+
+  &:hover {
+    background-color: $color-primary;
+  }
+}
+
+.btn-accent {
+  @include btn;
+  color: $white;
+  padding: 0 25px;
+  span {
+    color: $white;
     opacity: 1 !important;
     font-size: 1rem;
   }

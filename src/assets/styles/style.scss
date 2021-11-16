@@ -57,6 +57,12 @@ li {
   font-family: "Bai Jamjuree", Arial, sans-serif;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 @media (min-width: 1264px) {
   .container:not(.container--fluid) {
     max-width: 1140px;

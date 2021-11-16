@@ -64,9 +64,14 @@ footer.theme--light.v-sheet {
   color: $white;
   display: flex;
   height: 50px;
+  padding-top: 0;
+  padding-bottom: 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
-main {
-  height: calc(100vh - 130px);
+.v-main {
+  // height: calc(100% - 130px);
 }
 </style>

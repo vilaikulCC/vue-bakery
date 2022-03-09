@@ -5,10 +5,10 @@
       <div v-if="error" class="alert alert-danger">{{ error }}</div>
       <form action="#" @submit.prevent="submit">
         <div class="form-group row">
-          <label for="email" class="col-md-4 col-form-label text-md-right"
+          <label for="email" class="col-12 col-form-label text-center"
             >Email</label
           >
-          <div class="col-md-6">
+          <div class="col-12">
             <input
               id="email"
               type="email"
@@ -23,11 +23,11 @@
         </div>
 
         <div class="form-group row">
-          <label for="password" class="col-md-4 col-form-label text-md-right"
+          <label for="password" class="col-12 col-form-label text-center"
             >Password</label
           >
 
-          <div class="col-md-6">
+          <div class="col-12">
             <input
               id="password"
               type="password"
@@ -40,7 +40,7 @@
         </div>
 
         <div class="form-group row mb-0">
-          <div class="col-md-8 offset-md-4">
+          <div class="col-12">
             <v-btn
               elevation="2"
               plain
@@ -52,7 +52,7 @@
           </div>
         </div>
       </form>
-      <div><span>or</span></div>
+      <!-- <div><span>or</span></div>
       <v-btn
         elevation="2"
         plain
@@ -62,7 +62,7 @@
         :loading="loading"
         :ripple="false"
         ><i class="fab fa-google"></i> Sign in with Google</v-btn
-      >
+      > -->
     </div>
   </div>
 </template>
@@ -74,8 +74,20 @@ import firebase from "../../db";
 @Component({})
 export default class Login extends Vue {
   form = { email: "", password: "" };
-  error = null;
+  error = "";
   loading = false;
+
+  beforeCreate() {
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log(`User : ${user}`);
+      if (!user) {
+        this.$router.replace("/backoffice/login");
+        // alert("You don't have a permission");
+      } else {
+        this.$router.replace("/backoffice/");
+      }
+    });
+  }
 
   submit() {
     console.log("submit");
@@ -90,9 +102,16 @@ export default class Login extends Vue {
         this.$router.replace({ path: "/backoffice/dashboard" });
       })
       .catch((err) => {
+        this.loading = false;
         var errorCode = err.code;
         var errorMessage = err.message;
+        this.error = "Invalid username or password";
       });
+  }
+
+  resetInput() {
+    this.form.email = "";
+    this.form.password = "";
   }
 
   loginWithGoogle() {
@@ -100,14 +119,13 @@ export default class Login extends Vue {
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then(
-        (data) => {
-          this.$router.replace({ path: "/backoffice/dashboard" });
-        },
-        (err) => {
-          alert(err.message);
-        }
-      );
+      .then((data) => {
+        this.$router.replace({ path: "/backoffice/dashboard" });
+      })
+      .catch((err) => {
+        this.loading = false;
+        // this.error = "Invalid";
+      });
   }
 }
 </script>
@@ -161,6 +179,12 @@ export default class Login extends Vue {
         i {
           margin-right: 15px;
         }
+      }
+    }
+    .alert {
+      &.alert-danger {
+        color: #cc0000;
+        font-weight: 500;
       }
     }
   }

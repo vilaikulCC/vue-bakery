@@ -1,18 +1,24 @@
 <template>
   <div>
-    <div class="header">
-      <div>
-        <h3>Bakery Management System</h3>
-      </div>
-      <!-- <div>
+    <div v-if="{ isLoggedIn }">
+      <div class="header">
+        <div>
+          <h3>Bakery Management System</h3>
+        </div>
+        <!-- <div>
         Bakery</div> -->
-      <div><v-btn @click="signOut" type="submit">Sign Out</v-btn></div>
-    </div>
-    <v-main> <slot></slot> </v-main>
+        <div><v-btn @click="signOut" type="submit">Sign Out</v-btn></div>
+      </div>
+      <v-main> <slot></slot> </v-main>
 
-    <v-footer>
-      <v-container fluid> @ 2021 Vilaikul </v-container>
-    </v-footer>
+      <v-footer>
+        <v-container fluid> @ 2021 Vilaikul </v-container>
+      </v-footer>
+    </div>
+
+    <div v-else>
+      <slot name="login"> </slot>
+    </div>
   </div>
 </template>
 
@@ -22,11 +28,17 @@ import firebase from "../../db";
 
 @Component({})
 export default class BoLayout extends Vue {
+  isLoggedIn = false;
   beforeCreate() {
     firebase.auth().onAuthStateChanged((user) => {
+      console.log(`User : ${user}`);
       if (!user) {
+        this.isLoggedIn = false;
         this.$router.replace("/backoffice/login");
-        alert("You don't have a permission");
+        // alert("You don't have a permission");
+      } else {
+        this.isLoggedIn = true;
+        this.$router.replace("/backoffice/");
       }
     });
   }
@@ -35,9 +47,9 @@ export default class BoLayout extends Vue {
       .auth()
       .signOut()
       .then(() => {
-        this.$router.replace("/backoffice/");
+        this.$router.replace("/backoffice/login");
       })
-      .catch();
+      .catch((err) => console.log(`Error : ${err}`));
   }
 }
 </script>

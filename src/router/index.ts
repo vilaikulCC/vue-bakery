@@ -22,8 +22,8 @@ const routes: Array<RouteConfig> = [
       {
         path: "",
         redirect: {
-          path: "login",
-          name: "backoffice.login",
+          path: "",
+          name: "backoffice.dashboard",
         },
       },
       {

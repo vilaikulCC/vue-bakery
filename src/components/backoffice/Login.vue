@@ -1,5 +1,6 @@
 <template>
   <div class="seciton-login">
+    <img src="/img/logo_125Bakery.svg" alt="" class="heading-logo" />
     <div class="box-login">
       <h1>Login</h1>
       <div v-if="error" class="alert alert-danger">{{ error }}</div>
@@ -136,18 +137,27 @@ export default class Login extends Vue {
   justify-content: center;
   align-items: center;
   flex: 1;
-  flex-direction: row;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
+  .heading-logo {
+    width: 180px;
+    margin-bottom: 25px;
+  }
   .box-login {
-    padding: 20px 35px;
-    flex-basis: 500px;
+    padding: 15px 35px 20px;
+    width: 500px;
     background-color: $color-primary-lighter;
     color: $color-secondary-darker;
     border: 1px solid $black;
     animation: slideOut 3s ease-in-out;
     text-align: center;
+
+    .form-group label {
+      padding: 0;
+    }
     h1 {
+      font-size: 2rem;
       margin: 15px 0 35px;
     }
     label {

@@ -111,7 +111,7 @@
 
       <!-- Action -->
       <template v-slot:[`item.actions`]="{ item }">
-        <v-btn class="mr-2" @click="editItem(item)">
+        <v-btn class="mr-2" @click="editItem(item)" >
           <i class="fas fa-pen"></i>
         </v-btn>
         <v-btn @click="deleteItem(item)">
@@ -165,6 +165,7 @@ export default class Dashboard extends Vue {
   bakeryList = [];
   editedIndex = -1;
   editedItem: Bakery = {
+    id: "",
     name: "",
     price: 0,
     selling_price: 0,
@@ -172,6 +173,7 @@ export default class Dashboard extends Vue {
     unit: "แพ็ค",
   };
   defaultItem: Bakery = {
+    id: "",
     name: "",
     price: 0,
     selling_price: 0,
@@ -205,8 +207,9 @@ export default class Dashboard extends Vue {
   }
 
   editItem(item: Bakery) {
-    console.log(item);
-    // this.editedIndex = this.bakeryList.indexOf(item);
+    console.log(item.id);
+    this.editedIndex = this.bakeryList.findIndex(i => i === item);
+    console.log(this.editedIndex)
     this.editedItem = Object.assign({}, item);
     this.dialog = true;
   }
@@ -241,7 +244,19 @@ export default class Dashboard extends Vue {
   save() {
     if (this.editedIndex > -1) {
       Object.assign(this.bakeryList[this.editedIndex], this.editedItem);
+      console.log(this.editedIndex);
     } else {
+      console.log(this.editedIndex);
+      db.collection("bakery")
+        .add({ ...this.editedItem })
+        .then((docRef) => {
+          console.log("Document written with ID: ", docRef.id);
+        })
+        .catch((err) => {
+          console.log("Error : " + err);
+        });
+
+      // Object.assign(this.bakeryList[this.editedIndex], this.editedItem);
       // this.bakeryList.push(this.editedItem);
     }
     this.close();
